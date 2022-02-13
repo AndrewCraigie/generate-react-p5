@@ -136,7 +136,7 @@ const generateReactp5 = (argv) => {
 
 
     // Output Sketch Closure File
-    const sketchScriptContent = sketchTemplate.sketchTemplate(sketchClosureName);
+    const sketchScriptContent = sketchTemplate.sketchTemplate(sketchClosureName, sketchWidth, sketchHeight);
 
     const sketchClosureFilePath = path.resolve(sketchDirectoryPath, sketchClosureFileName);
     fs.writeFileSync(sketchClosureFilePath, sketchScriptContent);

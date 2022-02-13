@@ -1,5 +1,5 @@
 
-module.exports.sketchTemplate = (sketchClosureName) => {
+module.exports.sketchTemplate = (sketchClosureName, sketchWidthForTemplate, sketchHeightForTemplate) => {
 
     return `
 const ${sketchClosureName} = (s) => {
@@ -8,7 +8,7 @@ const ${sketchClosureName} = (s) => {
     s.dispatch = () => { }
     
     s.setup = () => {
-        s.createCanvas(s.state.sketchWidth, s.state.sketchHeight)
+        s.createCanvas(${sketchWidthForTemplate}, ${sketchHeightForTemplate})
     
         s.dispatch({
             type: 'OUTPUT_DISPLAY_SKETCH_DENSITY',
