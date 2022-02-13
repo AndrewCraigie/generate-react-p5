@@ -13,9 +13,9 @@ module.exports.sketchComponentTemplate = (
 import React from 'react';
 
 import { generate } from 'shortid';
-import p5WrapperGenerator from '${p5WrapperRelativePath}';
+import p5WrapperGenerator from "${p5WrapperRelativePath}";
 
-import ${sketchClosureName} from '${sketchClosureFileRelativePath}';
+import ${sketchClosureName} from "${sketchClosureFileRelativePath}";
 
 const ${sketchWrapperName} = p5WrapperGenerator(generate(), ${sketchWidth}, ${sketchHeight});
 
