@@ -149,8 +149,6 @@ const generateReactp5 = (argv) => {
     const generatorRelativePath = relativeUps + matchedRootPathObj.generatorPathTail.replace('\\', '/');
     const sketchClosureFileRelativePath = `./${sketchClosureFileName}`;
 
-    console.log(`wrapper relative path: ${generatorRelativePath}`);
-
     const sketchComponentContent = sketchComponentTemplate.sketchComponentTemplate(
         generatorRelativePath,
         sketchClosureName,
