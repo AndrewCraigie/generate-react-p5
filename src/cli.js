@@ -48,7 +48,7 @@ const getMatchedRootPath = (gPath, sPath) => {
 
 }
 
-const fileGeneratorFile = function(dir, fileToFind) {
+const findGeneratorFile = function(dir, fileToFind) {
     let results = [];
     const list = fs.readdirSync(dir);
     list.forEach(function(file) {
@@ -56,7 +56,7 @@ const fileGeneratorFile = function(dir, fileToFind) {
         const stat = fs.statSync(file);
         if (stat && stat.isDirectory()) {
             /* Recurse into a subdirectory */
-            results = results.concat(fileGeneratorFile(file, fileToFind));
+            results = results.concat(findGeneratorFile(file, fileToFind));
         } else {
             const file_type = file.split(".").pop();
             const file_name = file.split(/(\\|\/)/g).pop();
@@ -118,7 +118,7 @@ const generateReactp5 = (argv) => {
 
     // Get file path to P5WrapperGenerator.js
     console.log(`Searching for P5WrapperGenerator.js in ${currentWorkingDirectory}`);
-    const results = fileGeneratorFile(currentWorkingDirectory, 'P5WrapperGenerator.js');
+    const results = findGeneratorFile(currentWorkingDirectory, 'P5WrapperGenerator.js');
     const generatorFilePath = path.resolve(results[0]);
     console.log(`P5WrapperGenerator found at: ${generatorFilePath}`);
 
@@ -146,8 +146,9 @@ const generateReactp5 = (argv) => {
     const matchedRootPathObj = getMatchedRootPath(generatorFilePath, sketchClosureFilePath);
 
     const relativeUps = '../'.repeat(matchedRootPathObj.relativeUps);
-    const generatorRelativePath = relativeUps + matchedRootPathObj.generatorPathTail.replace('\\', '/');
-    const sketchClosureFileRelativePath = `./${sketchClosureFileName}`;
+    const generatorRelativePath = relativeUps + matchedRootPathObj.generatorPathTail.replace('\\', '/').replace('.js', '');
+
+    const sketchClosureFileRelativePath = `./${sketchClosureFileName.replace('.js', '')}`;
 
     const sketchComponentContent = sketchComponentTemplate.sketchComponentTemplate(
         generatorRelativePath,
@@ -164,7 +165,7 @@ const generateReactp5 = (argv) => {
 
 
     // Output Sketch Page
-    const sketchComponentRelativePath = `./${sketchComponentFileName}`;
+    const sketchComponentRelativePath = `./${sketchComponentFileName.replace('.js', '')}`;
     const sketchPageContent = sketchPageTemplate.sketchPageTemplate(
         sketchComponentName,
         sketchComponentRelativePath,
